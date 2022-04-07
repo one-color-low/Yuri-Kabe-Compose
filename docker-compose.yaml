@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  web:
+    build: ./Yuri-Kabe-Front
+    container_name: web01
+    ports: 
+      - 80:8080
+    environment:
+      - "TZ=Japan"
+    networks:
+      - Yuri-Kabe_network
+    volumes:
+      - ./Yuri-Kabe-Front/src:/var/www/
+    
+  ap:
+    build: ./Yuri-Kabe-Go
+    container_name: ap01
+    ports:
+      - 6000:6000
+    environment:
+      - "TZ=Japan"
+    networks: 
+      - Yuri-Kabe_network
+    volumes:
+      - ./Yuri-Kabe-Go/src:/go/src/app
+    tty: true #docker-compose up -d 時に起動し続けるためのオプション
+      
+networks:
+  Yuri-Kabe_network:
+    driver: bridge
