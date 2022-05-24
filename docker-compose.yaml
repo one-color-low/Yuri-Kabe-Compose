@@ -28,6 +28,20 @@ services:
       - ./Yuri-Kabe-Go/src:/go/src/app
     tty: true #docker-compose up -d 時に起動し続けるためのオプション
       
+
+  pose:
+    build: ./Yuri-Kabe-Pose
+    container_name: pose01
+    ports:
+      - 5000:5000
+    environment:
+      - "TZ=Japan"
+    networks: 
+      - Yuri-Kabe_network
+    volumes:
+      - ./Yuri-Kabe-Pose/src:/api
+    tty: true #docker-compose up -d 時に起動し続けるためのオプション
+
 networks:
   Yuri-Kabe_network:
     driver: bridge
